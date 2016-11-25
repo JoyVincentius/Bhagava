@@ -14,6 +14,12 @@ $(document).ready(function() {
         "processing": true,
         "serverSide": true,
         "ajax": "data/data_customers.php"
+	 "columnDefs": [
+			{
+			"targets": [ 0 ],
+			"visible": false,
+			"searchable": false
+			},]
     } );
 	
     var table = $('#table_view').DataTable();
