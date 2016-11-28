@@ -79,11 +79,18 @@ $(document).ready(function() {
     });
 	
 	$('#insert').click( function () {
-		$('#formfield').css('display','block');
-		$('#tableshow').css('display','none');
-		document.getElementById("id_act").value='1';
-        document.getElementById("title_modal").innerHTML="Masukan Data";
-		document.getElementById("myForm").reset();
+		<?php
+			if(!empty($_GET['id']))
+			{
+				echo "$('.edithide').css('display','none');";
+			}
+		?>
+			
+			$('#formfield').css('display','block');
+			$('#tableshow').css('display','none');
+			document.getElementById("id_act").value='1';
+			document.getElementById("title_modal").innerHTML="Masukan Data";
+			document.getElementById("myForm").reset();
     } );
 	
 	$('#backbutton').click( function () {
@@ -332,19 +339,18 @@ $(document).ready(function() {
 		 <tbody>
 
 		 <?php
-		 if(!empty($_GET['id'])){
-		  		$sqltab	="select * from v_sales_order where no_order='ord0000002'";
+		  		$sqltab	="select * from v_sales_order where no_order='$_GET[id]'";
 				$restab	= mysqli_query($con,$sqltab);
 				while($rowtab=mysqli_fetch_array($restab))
 				{
 		  ?><!--Edit data sales order-->
-				<tr>
+				<tr class="edithide">
 					<td>
 							<?php
 					
 					//nama customer->product
 							$sqlcust	="select m_product_id,product_name,harga_jual from m_product order by product_name asc ";
-							$rescust	= mysqli_query($con,$sqlcust);
+								$rescust	= mysqli_query($con,$sqlcust);
 							?>
 							<select class="form-control"id="m_product_id[]" placeholder="Enter Product"name="m_product_id[]" required style="width:100%" onchange="getValue(this.value,'dataTable',this.parentElement.parentElement)" >
 									<option value="">Pilih Product</option>
@@ -375,9 +381,9 @@ $(document).ready(function() {
 				</tr>
 				<?php 
 				}
-			}?>
+			?>
 		  	<!--insert data sales order-->	 
-		 <tr id="new_data_detail_insert">
+		 <tr class="new_data_detail_insert">
 			<p>
 			<td >
 							<?php
