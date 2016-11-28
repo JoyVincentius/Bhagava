@@ -82,7 +82,9 @@ $(document).ready(function() {
 		<?php
 			if(!empty($_GET['id']))
 			{
-				echo "$('.edithide').css('display','none');";
+				echo "$('.edithide').css('display','none');
+						$('.edithide').prop('disabled', true);
+					  document.getElementById('tglorder').readOnly = false;";
 			}
 		?>
 			
@@ -133,31 +135,6 @@ $(document).ready(function() {
 			
     } );
 	
-	/*	$('#edit').click( function () {
-	
-			var datates= table.row('.selected').data() ;
-			var datatesnew=datates.toString().split(",");
-			document.getElementById("title_modal1").innerHTML="Ubah Data";
-			document.getElementById("id_act1").value='2';
-			document.getElementById("sales_order_header_id1").value=datatesnew[0];
-			document.getElementById("noorder1").value=datatesnew[1];
-			document.getElementById("noorder1").readOnly = true;
-			
-			document.getElementById("tglorder1").value=datatesnew[2];
-			document.getElementById("tglorder1").readOnly = true;
-			document.getElementById("customer1").value=datatesnew[4];
-			
-			document.getElementById("customer_name").value = datatesnew[3];
-			document.getElementById("customer_name").readOnly = true;
-			
-			document.getElementById("kodeitem").value=datatesnew[5];
-			
-			document.getElementById("qty").value=datatesnew[6];
-			document.getElementById("hargajual").value=datatesnew[7];
-			document.getElementById("total").value=datatesnew[8];
-			$('#ModalEdit').modal('show');
-    } );*/
-	
 	$('#delete').click( function () {
         var datates= table.row('.selected').data() ;
 		var datatesnew=datates.toString().split(",");
@@ -178,7 +155,7 @@ $(document).ready(function() {
 	
 	
 	
-	/*$("#myForm").submit(function(e) {
+	$("#myForm").submit(function(e) {
 
     var url = "salesorder_process.php"; // the script where you handle the form input.
 	var formData=new FormData($(this)[0]);
@@ -194,7 +171,7 @@ $(document).ready(function() {
          });
 
     e.preventDefault(); // avoid to execute the actual submit of the form.
-});*/
+});
 	
 } );
 
@@ -339,8 +316,10 @@ $(document).ready(function() {
 		 <tbody>
 
 		 <?php
-		  		$sqltab	="select * from v_sales_order where no_order='$_GET[id]'";
+			if(!empty($_GET['id']))
+			{	$sqltab	="select * from v_sales_order where no_order='$_GET[id]'";
 				$restab	= mysqli_query($con,$sqltab);
+				
 				while($rowtab=mysqli_fetch_array($restab))
 				{
 		  ?><!--Edit data sales order-->
@@ -381,9 +360,10 @@ $(document).ready(function() {
 				</tr>
 				<?php 
 				}
+			}
 			?>
 		  	<!--insert data sales order-->	 
-		 <tr class="new_data_detail_insert">
+		 <tr id="new_data_detail_insert">
 			<p>
 			<td >
 							<?php
