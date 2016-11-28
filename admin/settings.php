@@ -35,5 +35,5 @@ require_once PATH.'libs/header.php';
 
 <?php
 require_once PATH.'libs/footer.php';
-//contoh
 ?>
+blue
