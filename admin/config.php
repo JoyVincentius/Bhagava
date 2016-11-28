@@ -18,5 +18,3 @@ $setting['error_log_path'] = 'logs/';
 $setting['error_log_ext'] = '.txt';
 $setting['db_datetime_format'] = 'Y-m-d H:i:s';
 ?>
-
-test
